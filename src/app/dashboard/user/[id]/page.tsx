@@ -26,8 +26,8 @@ const ProfilePage = async (props: Props) => {
       </div>
 
       <div className="grid grid-cols-2  p-2 gap-2">
-        <p className="p-2 text-slate-400">Name:</p>
-        <p className="p-2 text-slate-950">{user.username}</p>
+        <p className="p-2 text-slate-400">Email:</p>
+        <p className="p-2 text-slate-950">{user.email}</p>
       </div>
     </div>
   );

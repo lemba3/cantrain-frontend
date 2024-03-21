@@ -14,6 +14,19 @@ const AppBar = () => {
       >
         DashBoard
       </Link>
+      <Link
+        className="transition-colors hover:text-blue-500"
+        href={"/documents"}
+      >
+        Documents
+      </Link>
+
+      <Link
+        className="transition-colors hover:text-blue-500"
+        href={"/applicants"}
+      >
+        Applicants
+      </Link>
 
       <SignInButton />
     </header>
