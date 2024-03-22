@@ -1,5 +1,7 @@
 // export { default } from "next-auth/middleware";
+import { getServerSession } from "next-auth";
 import { withAuth } from "next-auth/middleware"
+import { getSession } from "next-auth/react";
 
 export default withAuth(
   // `withAuth` augments your `Request` with the user's token.
@@ -8,8 +10,8 @@ export default withAuth(
   // },
   {
     callbacks: {
-      authorized: ({ token }) => {
-        // const session = await getServerSession(authOptions);
+      authorized: async({ token }) => {
+        console.log("token", token)
         if(token) {
           return true;
         }
@@ -20,3 +22,7 @@ export default withAuth(
 )
 
 export const config = { matcher: ["/dashboard/:path*", "/documents/:path*"] };
+
+// export { default } from "next-auth/middleware";
+
+// export const config = { matcher: ["/dashboard/:path*", "/documents/:patj*"] };

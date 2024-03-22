@@ -2,6 +2,7 @@
 import { signIn } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import ChangePasswordForm from '../components/change-password-form';
 
 type Props = {
   searchParams?: Record<"callbackUrl" | "error", string>;
@@ -50,39 +51,29 @@ const LoginPage = (props: Props) => {
     return user;
   }
 
-  const callChangePassword = () => {
-    setError(false);
-    setReqPassChange(true);
-  }
-
   const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const user = await getUser();
     // console.log("user", user.user.req_pass_change);
     if(user && !user.user.req_pass_change) {
-      signInAndStoreToken();
+      await signInAndStoreToken();
     }
     if(user && user.user.req_pass_change) {
-      // make user change pass
-      callChangePassword();
+      setError(false);
+      setReqPassChange(true);
     }
   };
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>
+        {!reqPassChange && <h2 className="text-2xl font-semibold text-center mb-6">Login</h2>}
         {error && (
           <p className="bg-red-100 text-red-600 text-center p-2">
             Authentication Failed
           </p>
         )}
-        {reqPassChange && (
-          <p className="bg-yellow-100 text-yellow-600 text-center p-2">
-            Change your password to activate account
-          </p>
-        )}
-        <form onSubmit={handleSubmit}>
+        {!reqPassChange && <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
             <input
@@ -111,7 +102,8 @@ const LoginPage = (props: Props) => {
           >
             Login
           </button>
-        </form>
+        </form>}
+        {reqPassChange && <ChangePasswordForm email={email} callbackUrl={props.searchParams?.callbackUrl} />}
       </div>
     </div>
   );

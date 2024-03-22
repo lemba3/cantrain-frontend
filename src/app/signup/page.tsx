@@ -1,4 +1,5 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { Button } from "../components/Button";
 import InputBox from "../components/InputBox";
 import Link from "next/link";
@@ -10,6 +11,8 @@ type FormInputs = {
 };
 
 const SignupPage = () => {
+
+  const router = useRouter();
   const register = async () => {
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_BACKEND_API}` + "/auth/register", {
       method: "POST",
@@ -27,7 +30,8 @@ const SignupPage = () => {
     }
     const response = await res.json();
     // alert("User Registered!");
-    console.log({ response });
+    // console.log({ response });
+    router.push("/?noti=true");
   };
   const data = useRef<FormInputs>({
     email: "",
