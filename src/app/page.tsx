@@ -1,7 +1,7 @@
 "use client";
-import { create } from "zustand";
 import Toast from "./components/Toast";
 import { useEffect, useRef } from "react";
+import { useToastStore } from "./stores/useToastStore";
 
 type Props = {
   searchParams?: Record<"noti", string>;
@@ -38,12 +38,9 @@ export default function Home(props: Props) {
   );
 }
 
-export const useToastStore = create<{
-  isOpen: boolean,
-  openToast: () => void,
-  closeToast: () => void
-}>((set) => ({
-  isOpen: false,
-  openToast: () => set({ isOpen: true }),
-  closeToast: () => set({ isOpen: false }),
-}));
+type ToastStoreState = {
+  showToast: boolean;
+  message: string;
+  toggleToast: () => void;
+  setMessage: (msg: string) => void;
+};

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 import AppBar from "./components/AppBar";
 import Providers from "./components/Providers";
+import { ReactQueryProvider } from "./react-query-provider";
 
 // const inter = Inter({ subsets: ["latin"] });
 
@@ -20,10 +21,12 @@ export default function RootLayout({
     <html lang="en">
       {/* <body className={inter.className}> */}
       <body>
-        <Providers>
-          <AppBar />
-          {children}
-        </Providers>
+        <ReactQueryProvider>
+          <Providers>
+            <AppBar />
+            {children}
+          </Providers>
+        </ReactQueryProvider>
       </body>
     </html>
   );

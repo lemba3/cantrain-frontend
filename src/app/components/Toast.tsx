@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useToastStore } from '../page';
+import { useToastStore } from '../stores/useToastStore';
 
 interface ToastProps {
   message: string;
